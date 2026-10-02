@@ -1,0 +1,41 @@
+name: build-products
+
+# products/*.json (1商品=1ファイル)が変わったら、検査して products.json に束ねる。
+# 検査に失敗したら、この実行は失敗(赤い×)になり、products.json は更新されない。
+on:
+  push:
+    branches: [main, staging]
+    paths:
+      - 'products/**'
+      - 'scripts/**'
+      - '.github/workflows/build-products.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: build-products-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: テスト
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: 検査して products.json を作る
+        run: python3 scripts/build_products.py
+      - name: products.json が変わっていたらコミットする
+        run: |
+          if git diff --quiet -- products.json; then
+            echo "products.json に変更なし"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add products.json
+          git commit -m "chore: products.json を自動生成"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

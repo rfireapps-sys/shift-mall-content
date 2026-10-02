@@ -1,0 +1,11 @@
+{
+  "id": "p001",
+  "name": "ワイヤレスイヤホン",
+  "category": "家電",
+  "price": 12800,
+  "emoji": "🎧",
+  "originalPrice": 15800,
+  "imageUrl": "assets/products/p001.png",
+  "badge": "SALE",
+  "soldCount": 128
+}
