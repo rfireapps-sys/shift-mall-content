@@ -12,3 +12,6 @@ shift-mall.com
 
 # このリポジトリに置いた商品画像(ほかの人のリポジトリは通さないよう、パスまで書く)
 raw.githubusercontent.com/rfireapps-sys/shift-mall-content/
+
+# 楽天市場の商品ページ(承認前は普通のリンク。2026/10/28)
+item.rakuten.co.jp
