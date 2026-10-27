@@ -3,6 +3,7 @@
 
 - 検査に1つでも失敗したら、products.json は書き換えず、終了コード1で止まる(公開されない)。
 - 並び順は「ファイル名の昇順」。アプリのカテゴリの並びは、商品の並びで最初に出てきた順になる。
+- imageUrl / externalUrl の https のURLは、allowed_hosts.txt に書いた行き先だけ通す。
 - 標準ライブラリだけで動く。
 """
 import json
@@ -10,11 +11,12 @@ import math
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 ALLOWED_KEYS = {
     "id", "name", "category", "price", "originalPrice", "emoji",
-    "imageUrl", "badge", "soldCount", "description", "externalUrl",
+    "imageUrl", "badge", "soldCount", "description", "externalUrl", "hidden",
 }
 REQUIRED_STR_KEYS = ("id", "name", "category")
 OPTIONAL_STR_KEYS = ("emoji", "imageUrl", "badge", "description", "externalUrl")
@@ -25,8 +27,43 @@ def _is_number(v):
     return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
 
 
-def validate_product(data, stem):
-    """1商品の検査。エラーメッセージのリストを返す(空なら合格)。"""
+def load_allowed_hosts(path):
+    """allowed_hosts.txt を読んで、許可する行き先のリストを返す。
+
+    1行に1つ。# から後と空行は無視する。
+    - ドメインだけの行(例: shift-mall.com)は、そのドメインとサブドメインを許可する
+    - / を含む行(例: raw.githubusercontent.com/rfireapps-sys/shift-mall-content/)は、
+      「ドメイン+パス」がその文字列で始まるURLだけを許可する
+    """
+    entries = []
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        line = line.split("#", 1)[0].strip().lower()
+        if line:
+            entries.append(line)
+    return entries
+
+
+def host_allowed(url, allowed_hosts):
+    """https のURLの行き先が allowed_hosts のどれかに当たるか。"""
+    parts = urlsplit(url)
+    host = (parts.hostname or "").lower()
+    if not host:
+        return False
+    for entry in allowed_hosts:
+        if "/" in entry:
+            if (host + parts.path).startswith(entry):
+                return True
+        elif host == entry or host.endswith("." + entry):
+            return True
+    return False
+
+
+def validate_product(data, stem, allowed_hosts=None):
+    """1商品の検査。エラーメッセージのリストを返す(空なら合格)。
+
+    allowed_hosts が None のときは、URLの行き先を検査しない(単体テスト用)。
+    公開用の main() は、必ず allowed_hosts.txt の中身を渡す。
+    """
     if not isinstance(data, dict):
         return ["商品は { ... } の形(オブジェクト)で書いてください"]
     errors = []
@@ -64,10 +101,17 @@ def validate_product(data, stem):
     img = data.get("imageUrl")
     if isinstance(img, str) and img and not (img.startswith("https://") or img.startswith("assets/")):
         errors.append("'imageUrl' は https:// か assets/ (アプリ同梱の画像) で始めてください: %r" % img)
+    if allowed_hosts is not None:
+        for key in ("externalUrl", "imageUrl"):
+            url = data.get(key)
+            if isinstance(url, str) and url.startswith("https://") and not host_allowed(url, allowed_hosts):
+                errors.append("'%s' の行き先が allowed_hosts.txt にありません(足すときは1行追加): %r" % (key, url))
+    if "hidden" in data and not isinstance(data["hidden"], bool):
+        errors.append("'hidden' は true か false にしてください: %r" % (data["hidden"],))
     return errors
 
 
-def load_products(products_dir):
+def load_products(products_dir, allowed_hosts=None):
     """products_dir のJSONを読んで (商品のリスト, エラーのリスト) を返す。"""
     products, errors = [], []
     files = sorted(Path(products_dir).glob("*.json"))
@@ -79,10 +123,12 @@ def load_products(products_dir):
         except (OSError, ValueError) as e:
             errors.append("%s: JSONとして読めません: %s" % (f.name, e))
             continue
-        errs = validate_product(data, f.stem)
+        errs = validate_product(data, f.stem, allowed_hosts)
         errors.extend("%s: %s" % (f.name, e) for e in errs)
         if not errs:
             products.append(data)
+    if products and all(p.get("hidden") is True for p in products):
+        errors.append("全部の商品が hidden です(ショップが空になるので公開しません)")
     return products, errors
 
 
@@ -91,7 +137,11 @@ def render(products):
 
 
 def main(argv):
-    products, errors = load_products(ROOT / "products")
+    hosts_file = ROOT / "allowed_hosts.txt"
+    if not hosts_file.exists():
+        print("allowed_hosts.txt がありません。products.json は更新しません。", file=sys.stderr)
+        return 1
+    products, errors = load_products(ROOT / "products", load_allowed_hosts(hosts_file))
     if errors:
         print("検査に失敗しました。products.json は更新しません。", file=sys.stderr)
         for e in errors:

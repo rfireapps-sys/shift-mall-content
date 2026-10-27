@@ -59,6 +59,51 @@ class ValidateTest(unittest.TestCase):
     def test_not_an_object(self):
         self.assertTrue(bp.validate_product([1, 2], "p001"))
 
+    def test_hidden(self):
+        self.assertEqual(bp.validate_product(ok(hidden=True), "p001"), [])
+        self.assertEqual(bp.validate_product(ok(hidden=False), "p001"), [])
+        for bad in ("true", 1, None):
+            self.assertTrue(bp.validate_product(ok(hidden=bad), "p001"), repr(bad))
+
+
+HOSTS = ["shift-mall.com", "raw.githubusercontent.com/rfireapps-sys/shift-mall-content/"]
+
+
+class AllowedHostsTest(unittest.TestCase):
+    def test_domain_and_subdomain(self):
+        self.assertTrue(bp.host_allowed("https://shift-mall.com/x", HOSTS))
+        self.assertTrue(bp.host_allowed("https://shop.shift-mall.com/x", HOSTS))
+        self.assertTrue(bp.host_allowed("https://SHIFT-MALL.com/x", HOSTS))
+
+    def test_lookalike_hosts_are_rejected(self):
+        for url in ("https://evilshift-mall.com/x", "https://shift-mall.com.evil.example/x",
+                    "https://shift-mall.com@evil.example/x", "https://example.com/shift-mall.com"):
+            self.assertFalse(bp.host_allowed(url, HOSTS), url)
+
+    def test_path_entry(self):
+        ok_url = "https://raw.githubusercontent.com/rfireapps-sys/shift-mall-content/main/images/a.png"
+        self.assertTrue(bp.host_allowed(ok_url, HOSTS))
+        self.assertFalse(bp.host_allowed(
+            "https://raw.githubusercontent.com/someone-else/repo/main/a.png", HOSTS))
+        self.assertFalse(bp.host_allowed(
+            "https://raw.githubusercontent.com/rfireapps-sys/shift-mall-content-fake/a.png", HOSTS))
+
+    def test_validate_uses_allowed_hosts_for_both_urls(self):
+        good = ok(externalUrl="https://shift-mall.com/p", imageUrl="assets/products/p001.png")
+        self.assertEqual(bp.validate_product(good, "p001", HOSTS), [])
+        self.assertTrue(bp.validate_product(ok(externalUrl="https://example.com/x"), "p001", HOSTS))
+        self.assertTrue(bp.validate_product(ok(imageUrl="https://example.com/a.png"), "p001", HOSTS))
+
+    def test_load_allowed_hosts_ignores_comments_and_blanks(self):
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "allowed_hosts.txt"
+            f.write_text("# メモ\n\nShift-Mall.com  # 公式\n  a.example/b/ \n", encoding="utf-8")
+            self.assertEqual(bp.load_allowed_hosts(f), ["shift-mall.com", "a.example/b/"])
+
+    def test_repo_allowed_hosts_file_is_readable(self):
+        hosts = bp.load_allowed_hosts(bp.ROOT / "allowed_hosts.txt")
+        self.assertIn("shift-mall.com", hosts)
+
 
 class LoadTest(unittest.TestCase):
     def write(self, d, name, text):
@@ -93,6 +138,18 @@ class LoadTest(unittest.TestCase):
             products, errors = bp.load_products(d)
             self.assertEqual(len(errors), 1)
             self.assertIn("p002.json", errors[0])
+
+    def test_all_hidden_is_error(self):
+        with tempfile.TemporaryDirectory() as d:
+            self.write(d, "p001.json", json.dumps(ok(hidden=True)))
+            self.assertTrue(bp.load_products(d)[1])
+            self.write(d, "p002.json", json.dumps(ok(id="p002")))
+            self.assertEqual(bp.load_products(d)[1], [])
+
+    def test_disallowed_host_blocks_publish(self):
+        with tempfile.TemporaryDirectory() as d:
+            self.write(d, "p001.json", json.dumps(ok(externalUrl="https://example.com/x")))
+            self.assertTrue(bp.load_products(d, HOSTS)[1])
 
     def test_render_is_deterministic_and_keeps_japanese(self):
         text = bp.render([ok()])
