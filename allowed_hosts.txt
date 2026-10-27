@@ -1,0 +1,14 @@
+# 商品の imageUrl / externalUrl に使ってよい行き先(https のURLだけが対象)。
+# ここに無い行き先のURLを書くと、検査で止まって公開されない(打ち間違いや、似せた偽サイトを防ぐため)。
+#
+# 書き方(1行に1つ。# から後はメモ):
+# - ドメインだけ … そのドメインとサブドメインを許可する(例: example.com → shop.example.com も可)
+# - / を含む … 「ドメイン+パス」がその文字列で始まるURLだけを許可する
+#
+# 個人の販売サイトやASPを足すときは、ここに1行足す。
+
+# 公式サイト
+shift-mall.com
+
+# このリポジトリに置いた商品画像(ほかの人のリポジトリは通さないよう、パスまで書く)
+raw.githubusercontent.com/rfireapps-sys/shift-mall-content/
