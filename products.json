@@ -156,6 +156,94 @@
       "category": "生活雑貨",
       "price": 3800,
       "emoji": "🪴"
+    },
+    {
+      "id": "p022",
+      "name": "ReFa ビューテック ドライヤー スマート ダブル",
+      "category": "家電",
+      "price": 35000,
+      "emoji": "💇",
+      "externalUrl": "https://item.rakuten.co.jp/endless02/4974011803829/"
+    },
+    {
+      "id": "p023",
+      "name": "Panasonic 光美顔器 フォト ブライトショット EH-SL85",
+      "category": "家電",
+      "price": 62000,
+      "emoji": "✨",
+      "externalUrl": "https://item.rakuten.co.jp/endless02/4549980652923/"
+    },
+    {
+      "id": "p024",
+      "name": "シナモロール ぬいぐるみ 2L(約40cm)",
+      "category": "ホビー",
+      "price": 13000,
+      "emoji": "🧸",
+      "externalUrl": "https://item.rakuten.co.jp/connectgate/nst4550337230305/"
+    },
+    {
+      "id": "p025",
+      "name": "うさぎのぬいぐるみ 60cm",
+      "category": "ホビー",
+      "price": 5000,
+      "emoji": "🐰",
+      "externalUrl": "https://item.rakuten.co.jp/backyard-1/pk12317/"
+    },
+    {
+      "id": "p026",
+      "name": "Brown. キセログラフィカ ポット(フェイクグリーン)",
+      "category": "生活雑貨",
+      "price": 6000,
+      "emoji": "🪴",
+      "externalUrl": "https://item.rakuten.co.jp/i-love-baby/bm-29266/"
+    },
+    {
+      "id": "p027",
+      "name": "SONY BRAVIA 5 K-65XR53(65インチ)",
+      "category": "家電",
+      "price": 271000,
+      "emoji": "📺",
+      "externalUrl": "https://item.rakuten.co.jp/pc-bomber-shop/252220012590400/"
+    },
+    {
+      "id": "p028",
+      "name": "SONY WH-1000XM6 サンドストーン",
+      "category": "家電",
+      "price": 58000,
+      "emoji": "🎧",
+      "externalUrl": "https://item.rakuten.co.jp/pc-bomber-shop/252220012522500/"
+    },
+    {
+      "id": "p029",
+      "name": "simplus フードドライヤー SP-FD01",
+      "category": "家電",
+      "price": 7000,
+      "emoji": "🍓",
+      "externalUrl": "https://item.rakuten.co.jp/rcmdse/eb-rm33a/"
+    },
+    {
+      "id": "p030",
+      "name": "日清 カップヌードル 20食入りケース",
+      "category": "食品・グルメ",
+      "price": 5000,
+      "emoji": "🍜",
+      "externalUrl": "https://item.rakuten.co.jp/rakuten24/4902105212103/"
+    },
+    {
+      "id": "p031",
+      "name": "サトウのごはん 銀シャリ 80食",
+      "category": "食品・グルメ",
+      "price": 17000,
+      "emoji": "🍚",
+      "externalUrl": "https://item.rakuten.co.jp/likaman/950871-16/"
+    },
+    {
+      "id": "p032",
+      "name": "A DAY IN THE LIFE 裏起毛ロゴスウェット",
+      "category": "ファッション",
+      "price": 5000,
+      "emoji": "👕",
+      "externalUrl": "https://item.rakuten.co.jp/unitedarrowsltdoutlet/qk6522/"
     }
   ]
 }
