@@ -3,5 +3,6 @@
   "name": "4K対応モニター 27インチ",
   "category": "家電",
   "price": 34800,
-  "emoji": "🖥️"
+  "emoji": "🖥️",
+  "hidden": true
 }

@@ -3,5 +3,6 @@
   "name": "カシミヤコート",
   "category": "ファッション",
   "price": 42000,
-  "emoji": "🧥"
+  "emoji": "🧥",
+  "hidden": true
 }

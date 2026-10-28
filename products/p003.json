@@ -3,5 +3,6 @@
   "name": "ロボット掃除機",
   "category": "家電",
   "price": 45000,
-  "emoji": "🤖"
+  "emoji": "🤖",
+  "hidden": true
 }

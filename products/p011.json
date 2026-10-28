@@ -3,5 +3,6 @@
   "name": "高級和牛セット",
   "category": "食品・グルメ",
   "price": 15000,
-  "emoji": "🥩"
+  "emoji": "🥩",
+  "hidden": true
 }

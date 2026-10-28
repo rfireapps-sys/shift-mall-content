@@ -3,5 +3,6 @@
   "name": "サングラス",
   "category": "ファッション",
   "price": 9800,
-  "emoji": "🕶️"
+  "emoji": "🕶️",
+  "hidden": true
 }

@@ -3,5 +3,6 @@
   "name": "本革レザーバッグ",
   "category": "ファッション",
   "price": 22000,
-  "emoji": "👜"
+  "emoji": "👜",
+  "hidden": true
 }
