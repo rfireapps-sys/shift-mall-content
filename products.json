@@ -9,28 +9,32 @@
       "originalPrice": 15800,
       "imageUrl": "assets/products/p001.png",
       "badge": "SALE",
-      "soldCount": 128
+      "soldCount": 128,
+      "hidden": true
     },
     {
       "id": "p002",
       "name": "4K対応モニター 27インチ",
       "category": "家電",
       "price": 34800,
-      "emoji": "🖥️"
+      "emoji": "🖥️",
+      "hidden": true
     },
     {
       "id": "p003",
       "name": "ロボット掃除機",
       "category": "家電",
       "price": 45000,
-      "emoji": "🤖"
+      "emoji": "🤖",
+      "hidden": true
     },
     {
       "id": "p004",
       "name": "空気清浄機",
       "category": "家電",
       "price": 18500,
-      "emoji": "🌬️"
+      "emoji": "🌬️",
+      "hidden": true
     },
     {
       "id": "p005",
@@ -39,14 +43,16 @@
       "price": 128000,
       "emoji": "📱",
       "badge": "人気",
-      "soldCount": 342
+      "soldCount": 342,
+      "hidden": true
     },
     {
       "id": "p006",
       "name": "本革レザーバッグ",
       "category": "ファッション",
       "price": 22000,
-      "emoji": "👜"
+      "emoji": "👜",
+      "hidden": true
     },
     {
       "id": "p007",
@@ -54,42 +60,48 @@
       "category": "ファッション",
       "price": 14800,
       "emoji": "👟",
-      "badge": "NEW"
+      "badge": "NEW",
+      "hidden": true
     },
     {
       "id": "p008",
       "name": "腕時計",
       "category": "ファッション",
       "price": 38000,
-      "emoji": "⌚"
+      "emoji": "⌚",
+      "hidden": true
     },
     {
       "id": "p009",
       "name": "カシミヤコート",
       "category": "ファッション",
       "price": 42000,
-      "emoji": "🧥"
+      "emoji": "🧥",
+      "hidden": true
     },
     {
       "id": "p010",
       "name": "サングラス",
       "category": "ファッション",
       "price": 9800,
-      "emoji": "🕶️"
+      "emoji": "🕶️",
+      "hidden": true
     },
     {
       "id": "p011",
       "name": "高級和牛セット",
       "category": "食品・グルメ",
       "price": 15000,
-      "emoji": "🥩"
+      "emoji": "🥩",
+      "hidden": true
     },
     {
       "id": "p012",
       "name": "特選フルーツ詰め合わせ",
       "category": "食品・グルメ",
       "price": 6800,
-      "emoji": "🍇"
+      "emoji": "🍇",
+      "hidden": true
     },
     {
       "id": "p013",
@@ -97,28 +109,32 @@
       "category": "食品・グルメ",
       "price": 3200,
       "emoji": "☕",
-      "soldCount": 89
+      "soldCount": 89,
+      "hidden": true
     },
     {
       "id": "p014",
       "name": "クラフトビール飲み比べ",
       "category": "食品・グルメ",
       "price": 4500,
-      "emoji": "🍺"
+      "emoji": "🍺",
+      "hidden": true
     },
     {
       "id": "p015",
       "name": "ゲーミングチェア",
       "category": "ホビー",
       "price": 32000,
-      "emoji": "🪑"
+      "emoji": "🪑",
+      "hidden": true
     },
     {
       "id": "p016",
       "name": "デジタル一眼カメラ",
       "category": "ホビー",
       "price": 89000,
-      "emoji": "📷"
+      "emoji": "📷",
+      "hidden": true
     },
     {
       "id": "p017",
@@ -127,35 +143,40 @@
       "price": 24800,
       "emoji": "⛺",
       "originalPrice": 29800,
-      "badge": "SALE"
+      "badge": "SALE",
+      "hidden": true
     },
     {
       "id": "p018",
       "name": "アクリル絵の具フルセット",
       "category": "ホビー",
       "price": 5400,
-      "emoji": "🎨"
+      "emoji": "🎨",
+      "hidden": true
     },
     {
       "id": "p019",
       "name": "高機能マットレス",
       "category": "生活雑貨",
       "price": 58000,
-      "emoji": "🛏️"
+      "emoji": "🛏️",
+      "hidden": true
     },
     {
       "id": "p020",
       "name": "アロマディフューザー",
       "category": "生活雑貨",
       "price": 4800,
-      "emoji": "🕯️"
+      "emoji": "🕯️",
+      "hidden": true
     },
     {
       "id": "p021",
       "name": "観葉植物(モンステラ)",
       "category": "生活雑貨",
       "price": 3800,
-      "emoji": "🪴"
+      "emoji": "🪴",
+      "hidden": true
     },
     {
       "id": "p022",
