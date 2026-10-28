@@ -3,5 +3,6 @@
   "name": "腕時計",
   "category": "ファッション",
   "price": 38000,
-  "emoji": "⌚"
+  "emoji": "⌚",
+  "hidden": true
 }

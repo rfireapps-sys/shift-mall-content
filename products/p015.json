@@ -3,5 +3,6 @@
   "name": "ゲーミングチェア",
   "category": "ホビー",
   "price": 32000,
-  "emoji": "🪑"
+  "emoji": "🪑",
+  "hidden": true
 }

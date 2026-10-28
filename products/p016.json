@@ -3,5 +3,6 @@
   "name": "デジタル一眼カメラ",
   "category": "ホビー",
   "price": 89000,
-  "emoji": "📷"
+  "emoji": "📷",
+  "hidden": true
 }

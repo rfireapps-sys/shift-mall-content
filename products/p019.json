@@ -3,5 +3,6 @@
   "name": "高機能マットレス",
   "category": "生活雑貨",
   "price": 58000,
-  "emoji": "🛏️"
+  "emoji": "🛏️",
+  "hidden": true
 }

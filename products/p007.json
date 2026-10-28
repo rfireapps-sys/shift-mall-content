@@ -4,5 +4,6 @@
   "category": "ファッション",
   "price": 14800,
   "emoji": "👟",
-  "badge": "NEW"
+  "badge": "NEW",
+  "hidden": true
 }

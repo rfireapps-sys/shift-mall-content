@@ -7,5 +7,6 @@
   "originalPrice": 15800,
   "imageUrl": "assets/products/p001.png",
   "badge": "SALE",
-  "soldCount": 128
+  "soldCount": 128,
+  "hidden": true
 }

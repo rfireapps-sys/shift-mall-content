@@ -4,5 +4,6 @@
   "category": "食品・グルメ",
   "price": 3200,
   "emoji": "☕",
-  "soldCount": 89
+  "soldCount": 89,
+  "hidden": true
 }
